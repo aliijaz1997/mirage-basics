@@ -10,6 +10,9 @@ import items from './json.json';
       this.get("/items", () => {
         return items;
       })
+      this.post("/add",( schema, req) => {
+          items.push(JSON.parse(req.requestBody));
+            })
     },
   })
 
