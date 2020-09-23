@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-
+import makeServer from './components/server';
 function App() {
+makeServer();
+//Making use of usestate to update the fethced data ....2
+const [data, setData] = useState([]);  
+
+
+// Making useffect to call our function with async characteristics.....1
+useEffect(() => {
+  fetch('/fakeapi/items').then((res) => res.json()).then ((item) => {
+    // console.log(data);
+    setData(item);
+  })
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div>
+       <ul>
+         {data.map((obj,ind) => {
+          return <li key = {ind}>
+             {obj.food} 
+             
+             {obj.type}
+           </li>
+         })}
+       </ul>
+     </div>
     </div>
   );
 }
